@@ -108,8 +108,23 @@ Same vector used against HPE in 2023. Findings fed directly into hardening steps
 
 ## Screenshots
 
-See [`/screenshots`](./screenshots) — KQL output, IAM role assignments, STRIDE threat results, OWASP Threat Dragon DFD, Log Analytics diagnostic ingestion.
+**KQL Live Query Output**
+![KQL Output](./screenshots/KQL.png)
 
+**IAM Role Assignments & Ownership Hierarchy**
+![Ownership Hierarchy](./screenshots/Ownership_Hierarchy.webp)
+
+**Azure Log Analytics Workspace**
+![Log Analytics](./screenshots/AZ_Log_Analytics.png)
+
+**OWASP Threat Dragon DFD**
+![DFD OWASP Model](./screenshots/DFD_OWASPModel.png)
+
+**Azure Key Vault DFD**
+![DFD AKV](./screenshots/DFD_AKV.png)
+
+**Risk Timeline**
+![Risk Timeline](./screenshots/Risk_Timeline.png)
 ---
 
 ##  Author
