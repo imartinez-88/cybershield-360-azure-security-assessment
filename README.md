@@ -1,60 +1,117 @@
-# **CyberShield-360 Azure Security Assessment**
-Enterprise-grade cloud security assessment of Microsoft Azure — built on a live Azure environment with real KQL audit logging, RBAC enforcement, STRIDE threat modeling, and a root cause analysis of the 2024 Midnight Blizzard nation-state breach. Produced as part of a comprehensive 60-page security report covering the full lifecycle from risk methodology to incident response.
+# 🛡️ CyberShield-360 — Azure Security Assessment
 
-# **What This Project Actually Does**
-Most security portfolios describe Azure. This one uses it.
-A real Azure for Students environment was provisioned from scratch — resource group isolation, Key Vault deployment, multi-principal RBAC configuration, diagnostic pipeline setup, and a 24-hour live monitoring window using KQL queries against Azure Diagnostics. Every finding in the gap analysis maps directly to a hardening step that was implemented and verified.
+> Enterprise cloud security assessment of Microsoft Azure — live environment, real KQL logs, nation-state breach analysis.
 
-# Scope
-Target: Microsoft Corporation — Azure Key Vault security architecture, identity governance, and NIST SP 800-171 compliance posture for government contractor tenants
-Framework Coverage: NIST SP 800-30 · NIST SP 800-171 Rev.2 · FedRAMP · FIPS 140-2 · STRIDE · OWASP Threat Dragon
+![Azure](https://img.shields.io/badge/Microsoft_Azure-0078D4?style=flat&logo=microsoftazure&logoColor=white)
+![NIST](https://img.shields.io/badge/NIST_SP_800--171-grey?style=flat)
+![FedRAMP](https://img.shields.io/badge/FedRAMP-Aligned-blue?style=flat)
+![STRIDE](https://img.shields.io/badge/Threat_Model-STRIDE-red?style=flat)
 
-# Key Areas
-**Risk Assessment & Methodology**
-Compared NIST SP 800-30 against OCTAVE Allegro across four evaluation dimensions — technical depth, scalability, regulatory alignment, and resource overhead — to determine the appropriate framework for a large-scale cloud environment handling CUI. NIST SP 800-30 selected and justified against Microsoft's operational complexity and FedRAMP authorization requirements.
-NIST SP 800-171 Gap Analysis
-Evaluated four control families (AC, IA, SC, AU) against Microsoft's Azure Key Vault implementation. Identified gaps across contractor tenant configurations including inconsistent HSM-backed key storage, absence of standardized RBAC templates, non-enforced MFA across legacy accounts, and unstandardized audit log retention. Mapped each gap to a prioritized remediation roadmap with 0–90 day timelines.
-Identified Gaps:
+---
 
-HSM-backed key storage not mandated for CUI tenants — software-protected tiers do not satisfy FIPS 140-2
-RBAC least privilege enforcement inconsistent across contractor tenants
-Audit log retention periods not standardized; no baseline 365-day policy enforced
-Key Vault access permission reviews rely entirely on manual customer process
+## 📋 Overview
 
-# Threat Modeling (STRIDE + OWASP Threat Dragon)
-Built a full data flow diagram of the Azure Key Vault authentication and access system using Yourdon and Coad notation. Modeled five components across the Azure Cloud Trust Boundary: external User/VM, Azure Entra ID, Azure Key Vault, Azure Monitor/Sentinel, and the API/identity flow layer.
-STRIDE CategoryComponentThreatSpoofingAPI / Identity FlowOAuth token forgery and JWT replay attacks against Azure API ManagementTamperingAzure Key VaultUnauthorized rotation or deletion of cryptographic keys and KEK/DEK materialRepudiationAzure Monitor/SentinelAudit log manipulation to conceal unauthorized access activityInformation DisclosureAzure Key VaultSecret exposure via misconfigured access policies or compromised identitiesDenial of ServiceAPI / Key Vault EndpointEndpoint flooding to disrupt Key Vault availabilityElevation of PrivilegeAzure Entra IDPrivilege escalation via misconfigured Active Directory policies
-Midnight Blizzard Breach Analysis (APT29 / NOBELIUM)
-Full root cause analysis of Microsoft's January 2024 breach by Russian SVR-backed threat group Midnight Blizzard. Traced the full attack chain:
+60-page security assessment covering Azure Key Vault architecture, NIST SP 800-171 gap analysis, STRIDE threat modeling, and a full root cause analysis of the **2024 Midnight Blizzard (APT29) breach**. Built on a real Azure for Students environment — not a simulation.
 
-Password spraying against legacy test accounts lacking MFA
-Microsoft Entra ID manipulation to add attacker credentials to compromised accounts
-Custom OAuth POST requests to generate authenticated tokens
-Lateral movement into corporate email systems via full_access_as_app Exchange permission scope
+📄 **[View Full Report (PDF)](./Microsoft_Azure_Security_Assessment.pdf)**
 
-Cross-referenced with the 2023 Hewlett Packard Enterprise breach (same threat actor, same initial vector) to identify the pattern. Findings directly informed the RBAC hardening, MFA enforcement, and audit logging steps performed in Section 6.
-Live Azure Hardening Demonstration
-Hardening performed directly inside Microsoft Azure on a real provisioned environment (cybershield-kv resource group, test-api-key Key Vault, CyberSH-law Log Analytics Workspace).
-Steps Implemented:
+---
 
-Resource Group Isolation — Scoped all IAM policies, diagnostic settings, and access controls to a dedicated resource group, eliminating subscription-level inheritance risks
-Multi-Principal RBAC Configuration — Four distinct role assignments demonstrating separation of duties: Owner (admin), Key Vault Administrator (admin), Key Vault Reader scoped to single secret (external user), Key Vault Secrets User (service principal)
-Diagnostic Logging Pipeline — Configured read/write/delete operation capture (GetSecret, SecretSet, SecretDelete) routed to Log Analytics Workspace, satisfying NIST SP 800-171 AU control requirements
-KQL Live Query Monitoring — Executed AzureDiagnostics | where ResourceType == "VAULTS" | take 10 against active Key Vault data plane. Verified SecretGet, SecretList, VaultGet, and SecretListVersions operations with ResultType: Success across 24-hour window
+## 🔍 What's Inside
 
-# Web Application Security Scan
-HTTP security header assessment of Microsoft's public-facing web applications using header scanner grading (A+ to F). Evaluated CSP, HSTS, X-Frame-Options, X-XSS-Protection, Referrer-Policy, and Permissions-Policy configurations against recommended hardening baselines.
+| Section | Description |
+|---|---|
+| **Risk Assessment** | NIST SP 800-30 vs OCTAVE Allegro comparison for large-scale cloud environments |
+| **Gap Analysis** | NIST SP 800-171 Rev.2 — AC, IA, SC, AU control families mapped against Azure Key Vault |
+| **Threat Modeling** | STRIDE analysis + OWASP Threat Dragon DFD of Azure Key Vault auth workflow |
+| **Breach Analysis** | APT29 / Midnight Blizzard root cause — password spraying → OAuth token abuse → lateral movement |
+| **Live Hardening** | Real Azure environment: RBAC, diagnostic logging, KQL monitoring, MFA enforcement |
+| **Web App Scan** | HTTP security header assessment of Microsoft public-facing applications |
 
-# Live Environment
-ResourceValueResource Groupcybershield-kvKey Vaulttest-api-keyLog Analytics WorkspaceCyberSH-lawSubscriptionAzure for StudentsEndpointmacOS Sonoma 14.5 · Apple M1 · FileVault enabled
+---
 
-# Technologies & Platforms
-Microsoft Azure · Azure Key Vault · Microsoft Entra ID · Azure Monitor · Microsoft Sentinel · Azure Policy · Microsoft Defender for Cloud · OWASP Threat Dragon · Kusto Query Language (KQL) · FIPS 140-2 HSM
+## 🧪 Live Azure Environment
 
-**Screenshots**
+Hardening performed on a real provisioned Azure environment:
 
-/screenshots — KQL query output, IAM role assignments, OWASP Threat Dragon DFD, STRIDE threat results, Log Analytics workspace diagnostic ingestion, macOS audit log output
+```
+Resource Group:        cybershield-kv
+Key Vault:             test-api-key
+Log Analytics:         CyberSH-law
+Subscription:          Azure for Students
+```
 
+**RBAC principals configured:**
+- `Isaac Martinez` — Owner + Key Vault Administrator (inherited)
+- `IsaacMartinez@MartinezIsaac` — Key Vault Reader scoped to single secret (external user + MFA)
+- `cybershield-app` — Key Vault Secrets User (service principal)
 
-# Full Report
-The complete 60-page assessment is available in Microsoft_Azure_Security_Assessment.pdf, covering all sections in full detail including data classification schema, compliance gap tables, STRIDE manual threat inputs, and the complete remediation roadmap.
+**KQL query used for live monitoring:**
+```kql
+AzureDiagnostics
+| where ResourceType == "VAULTS"
+| take 10
+```
+
+Operations verified over 24-hour window: `SecretGet` · `SecretList` · `VaultGet` · `SecretListVersions` · `SecretResourceGet`
+
+---
+
+## ⚔️ STRIDE Threat Model
+
+| Category | Component | Threat |
+|---|---|---|
+| **Spoofing** | API / Identity Flow | OAuth token forgery and JWT replay attacks |
+| **Tampering** | Azure Key Vault | Unauthorized rotation/deletion of KEK and DEK material |
+| **Repudiation** | Azure Monitor | Audit log manipulation to conceal access activity |
+| **Info Disclosure** | Azure Key Vault | Secret exposure via misconfigured policies |
+| **Denial of Service** | Key Vault Endpoint | Endpoint flooding to disrupt availability |
+| **Elevation of Privilege** | Azure Entra ID | Privilege escalation via misconfigured AD policies |
+
+---
+
+## 🕵️ Midnight Blizzard Breach — Attack Chain
+
+```
+Password spraying against legacy test accounts (no MFA)
+        ↓
+Entra ID manipulation — attacker adds own credentials to compromised accounts
+        ↓
+Custom OAuth POST requests → authenticated token generation
+        ↓
+full_access_as_app Exchange permission → corporate mailbox access
+        ↓
+Senior leadership email accounts compromised
+```
+
+Same vector used against HPE in 2023. Findings fed directly into hardening steps.
+
+---
+
+## 🔒 Identified Gaps & Remediation
+
+| Risk | Gap | Timeline |
+|---|---|---|
+| 🔴 HIGH | HSM-backed key storage not mandated — software tiers fail FIPS 140-2 | 0–30 days |
+| 🔴 HIGH | RBAC least privilege inconsistent across contractor tenants | 0–30 days |
+| 🔴 HIGH | Audit log retention not standardized across Monitor/Sentinel | 30–60 days |
+| 🟡 MEDIUM | MFA not enforced via Conditional Access on all accounts | 30–60 days |
+| 🟡 MEDIUM | No automated Key Vault access recertification reviews | 60–90 days |
+
+---
+
+## 🛠️ Tech Stack
+
+`Microsoft Azure` `Azure Key Vault` `Microsoft Entra ID` `Azure Monitor` `Microsoft Sentinel` `Azure Policy` `Microsoft Defender for Cloud` `OWASP Threat Dragon` `KQL` `FIPS 140-2`
+
+---
+
+## 📸 Screenshots
+
+See [`/screenshots`](./screenshots) — KQL output, IAM role assignments, STRIDE threat results, OWASP Threat Dragon DFD, Log Analytics diagnostic ingestion.
+
+---
+
+## 👤 Author
+
+**Isaac Martinez** — [@imartinez-88](https://github.com/imartinez-88)
