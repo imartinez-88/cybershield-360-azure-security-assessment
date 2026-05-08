@@ -30,7 +30,7 @@
 
 ---
 
-## 🧪 Live Azure Environment
+## Live Azure Environment
 
 Hardening performed on a real provisioned Azure environment:
 
@@ -57,7 +57,7 @@ Operations verified over 24-hour window: `SecretGet` · `SecretList` · `VaultGe
 
 ---
 
-## ⚔️ STRIDE Threat Model
+##  STRIDE Threat Model
 
 | Category | Component | Threat |
 |---|---|---|
@@ -70,7 +70,7 @@ Operations verified over 24-hour window: `SecretGet` · `SecretList` · `VaultGe
 
 ---
 
-## 🕵️ Midnight Blizzard Breach — Attack Chain
+##  Midnight Blizzard Breach — Attack Chain
 
 ```
 Password spraying against legacy test accounts (no MFA)
@@ -88,7 +88,7 @@ Same vector used against HPE in 2023. Findings fed directly into hardening steps
 
 ---
 
-## 🔒 Identified Gaps & Remediation
+##  Identified Gaps & Remediation
 
 | Risk | Gap | Timeline |
 |---|---|---|
@@ -100,18 +100,18 @@ Same vector used against HPE in 2023. Findings fed directly into hardening steps
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 `Microsoft Azure` `Azure Key Vault` `Microsoft Entra ID` `Azure Monitor` `Microsoft Sentinel` `Azure Policy` `Microsoft Defender for Cloud` `OWASP Threat Dragon` `KQL` `FIPS 140-2`
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 See [`/screenshots`](./screenshots) — KQL output, IAM role assignments, STRIDE threat results, OWASP Threat Dragon DFD, Log Analytics diagnostic ingestion.
 
 ---
 
-## 👤 Author
+##  Author
 
 **Isaac Martinez** — [@imartinez-88](https://github.com/imartinez-88)
